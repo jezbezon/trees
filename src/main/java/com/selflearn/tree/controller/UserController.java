@@ -26,24 +26,24 @@ public class UserController {
 	
 	@PostMapping("create")
 	public ResponseEntity<UserModel> createUser(@RequestBody UserDTO userdto) throws ParseException {
-        return  ResponseEntity.ok(userService.createCustomer(userdto));
+        return  ResponseEntity.ok(userService.createUser(userdto));
     }
 
 	@GetMapping
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseClass getUser() {
-		return new ResponseClass("00","fetch success!",userService.getAllCustomer());
+		return new ResponseClass("00","fetch success!",userService.getAllUser());
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("{id}")
     public ResponseEntity<UserModel> updateUserById(@PathVariable long id, @RequestBody UserDTO customerdto) {
-		return  ResponseEntity.ok(userService.updateCustomer(id, customerdto));
+		return  ResponseEntity.ok(userService.updateUserById(id, customerdto));
     }
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<String> deleteUserById(@PathVariable long id) {
-		userService.deleteCustomerId(id);
+		userService.deleteUserById(id);
 		return  ResponseEntity.ok("success delete customer id:"+id);
 	}
 	

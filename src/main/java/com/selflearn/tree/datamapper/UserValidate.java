@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class UserValidate {
 
-    private String username;
-    private String password;
-
+    private String oldPassword;
+    private String newPassword;
+    private String confirmPassword;
 }
