@@ -21,7 +21,7 @@ public class WebSecurityConfig {
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/accounts2/**",
-                                "/api/customer/create").permitAll()
+                                "/api/user/create").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> {})

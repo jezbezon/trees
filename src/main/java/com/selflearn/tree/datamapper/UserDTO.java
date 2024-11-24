@@ -13,7 +13,6 @@ public class UserDTO {
 	private String email;
 	private int sexId;
 	private short roleId;
-	@Size(min = 6 , max = 16)
 	private String password;
 
 }

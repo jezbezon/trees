@@ -29,7 +29,7 @@ public class UserController {
 	*/
 	private final UserService userService;
 
-	@PostMapping("create")
+	@PostMapping("/create")
 	public ResponseEntity<UserModel> createUser(@RequestBody UserDTO userdto) throws ParseException {
         return  ResponseEntity.ok(userService.createUser(userdto));
     }
