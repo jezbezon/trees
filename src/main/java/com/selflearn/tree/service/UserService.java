@@ -14,6 +14,6 @@ public interface UserService {
 	List<UserModel> getAllUser();
 	UserModel updateUserById(long id, UserDTO userDto);
 	void deleteUserById(long id);
-	List<UserModel> getByUserBy(String name, Integer roleId);
+	List<UserModel> getUserBy(String name, Integer roleId);
 	UserModel updatePasswordUserById(long id, UserValidate validate);
 }

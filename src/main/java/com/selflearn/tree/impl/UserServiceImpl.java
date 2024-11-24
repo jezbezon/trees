@@ -70,11 +70,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserModel> getByUserBy(String name, Integer roleId) {
+	public List<UserModel> getUserBy(String name, Integer roleId) {
 		if(name != null && roleId !=null){
-			userRepository.findByUserNameWithRole(name,roleId);
+			return userRepository.findByUserNameWithRole(name,roleId);
 		} else if (name!=null || roleId!=null) {
-			userRepository.findByUserNameOrRole(name,roleId);
+			return userRepository.findByUserNameOrRole(name,roleId);
 		}
 		return userRepository.findAll();
 	}
@@ -91,8 +91,10 @@ public class UserServiceImpl implements UserService {
 								"1 uppercase and one special character","01");
 					}
 				}else {
-					throw new CustomizeException.BadRequestException("Confirm password the match!","02");
+					throw new CustomizeException.BadRequestException("Confirm password not match!","02");
 				}
+			}else{
+				throw new CustomizeException.BadRequestException("Oldpassword not correct!","02");
 			}
 			log.info("Customer updated: " + user);
 			return userRepository.save(user);
