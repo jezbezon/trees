@@ -35,10 +35,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserModel createUser(UserDTO user)throws ParseException  {
 		Role role = roleRepository.findById(user.getRoleId()).orElseThrow(()-> new CustomizeException.NotFoundException("Invalid Role","02"));
+
 		if(!Pattern.compile(regex).matcher(user.getPassword()).matches()) {
 			throw new CustomizeException.BadRequestException("Password should be at least 8 characters 1 lowercase " +
 					"1 uppercase and one special character ","01");
 		}
+
+		if(userRepository.findByUserName(user.getUsername()).isPresent()) throw new CustomizeException.BadRequestException("This username already exit!","03");
+		if(userRepository.findByEmail(user.getEmail()).isPresent()) throw new CustomizeException.BadRequestException("This email already exit!","04");
+
 		UserModel userModel = UserModel.builder()
 										.username(user.getUsername())
 										.email(user.getEmail())
@@ -57,11 +62,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserModel updateUserById(long id, UserDTO userDto) {
-		UserModel user = userRepository.findById(id).orElseThrow();
-		user.setUsername(userDto.getUsername());
-		user.setEmail(userDto.getEmail());
-		log.info("Customer updated: " + user);
-		return userRepository.save(user);
+		return userRepository.findById(id).map(user -> {
+			user.setUsername(userDto.getUsername());
+			user.setEmail(userDto.getEmail());
+			log.info("Customer updated: " + user);
+			return userRepository.save(user);
+		}).orElseThrow(()-> new CustomizeException.NotFoundException("This User not found","05"));
+
 	}
 
 	@Override
@@ -88,17 +95,17 @@ public class UserServiceImpl implements UserService {
 						user.setPassword(PasswordUtils.encodedPassword(validate.getNewPassword()));
 					}else{
 						throw new CustomizeException.BadRequestException("Password should be at least 8 characters 1 lowercase " +
-								"1 uppercase and one special character","01");
+								"1 uppercase and one special character","06");
 					}
 				}else {
-					throw new CustomizeException.BadRequestException("Confirm password not match!","02");
+					throw new CustomizeException.BadRequestException("Confirm password not match!","07");
 				}
 			}else{
-				throw new CustomizeException.BadRequestException("Oldpassword not correct!","02");
+				throw new CustomizeException.BadRequestException("Oldpassword not correct!","08");
 			}
 			log.info("Customer updated: " + user);
 			return userRepository.save(user);
-		}).orElseThrow(()-> new CustomizeException.NotFoundException("User not found!"));
+		}).orElseThrow(()-> new CustomizeException.NotFoundException("User not found!","09"));
 	}
 
 

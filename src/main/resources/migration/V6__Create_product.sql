@@ -1,0 +1,13 @@
+CREATE TABLE product(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    name VARCHAR(128) UNIQUE NOT NULL,
+    price NUMERIC NOT NULL,
+    quantity INTEGER NOT NULL,
+    brand VARCHAR UNIQUE NOT NULL,
+    description VARCHAR NOT NULL,
+    category_id INTEGER NOT NULL,
+    CONSTRAINT fk_categories FOREIGN KEY (category_id) REFERENCES categories(id)
+
+);

@@ -21,6 +21,7 @@ public class WebSecurityConfig {
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/accounts2/**",
+                                "/h2-consoles/**",
                                 "/api/user/create").permitAll()
                         .anyRequest().authenticated()
                 )

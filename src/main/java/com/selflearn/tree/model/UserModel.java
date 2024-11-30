@@ -7,6 +7,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.selflearn.tree.datamapper.UserDTO;
 import com.selflearn.tree.exceptions.CustomizeException;
 import com.selflearn.tree.resposeClass.AuditModel;
 import jakarta.persistence.*;
@@ -44,6 +45,21 @@ public class UserModel extends AuditModel {
 	@JoinColumn(name ="role_id")
 	private Role role;
 
+	public UserModel(String username, String email, String password, int sex, Role role) {
+		this.username = username;
+		this.email = email;
+		this.sex = sex;
+		this.password = password;
+		this.role = role;
+	}
+
+	public UserModel(String username, String email, int sex, Role role) {
+		this.username = username;
+		this.email = email;
+		this.sex = sex;
+		this.role = role;
+	}
+
 	public String getRole(){
 		return role.getName();
 	}
@@ -54,6 +70,16 @@ public class UserModel extends AuditModel {
 				.findFirst()
 				.map(Sex::toString)
 				.orElseThrow(()-> new CustomizeException.NotFoundException("Invalid code"));
+	}
+
+	public UserDTO formUserDto(UserModel userModel){
+        return UserDTO.builder()
+                .username(userModel.getUsername())
+                .sexId(userModel.sex)
+                .roleId(userModel.role.getId())
+                .email(userModel.getEmail())
+				.password(userModel.getPassword())
+                .build();
 	}
 
 }

@@ -16,17 +16,17 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResponseClass createProduct(@RequestBody ProductDTO productDTO){
         return new ResponseClass("00","Create product success", productService.createProduct(productDTO));
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseClass updateProduct(@RequestBody ProductDTO productDTO, @PathVariable(value = "id") long id){
         return new ResponseClass("00","update product success", productService.updateProduct(id,productDTO));
     }
 
-    @GetMapping("brand")
+    @GetMapping("/brand")
     public ResponseClass getByBrand(@RequestParam(value = "brand") String brand){
         if(productService.getByBrand(brand).isEmpty()){
             return new ResponseClass("00","Fetch product success(No brand with this search {"+brand+"})",  new ArrayList<>());
@@ -34,7 +34,7 @@ public class ProductController {
         return new ResponseClass("00","Fetch product success", productService.getByBrand(brand));
     }
 
-    @GetMapping("NameWithBrand")
+    @GetMapping("/NameWithBrand")
     public ResponseClass getByNameWithBrand(@RequestParam(value = "name") String name, @RequestParam(value = "brand") String brand){
         if(productService.getByNameWithBrand(name.toUpperCase(),brand.toUpperCase()).isEmpty()){
             String message = String.format("Fetch product success (No Product name and brand with this search: Product {%s} Brand {%s})", name, brand);
@@ -43,7 +43,7 @@ public class ProductController {
         return new ResponseClass("00","Fetch product success", productService.getByNameWithBrand(name.toUpperCase(),brand.toUpperCase()));
     }
 
-    @GetMapping("name")
+    @GetMapping("/name")
     public ResponseClass getByName(@RequestParam(value = "name") String name){
         if(productService.getByName(name.toUpperCase()).isEmpty()){
             String message = String.format("Fetch product success (No Product name with this search: Product {%s})", name);
@@ -52,7 +52,7 @@ public class ProductController {
         return new ResponseClass("00","Fetch product success", productService.getByName(name.toUpperCase()));
     }
 
-    @GetMapping("BrandWithCategoryId/{categoryId}")
+    @GetMapping("/brand-categoryId/{categoryId}")
     public ResponseClass getByBrandWithCategoryId(@RequestParam(value = "brand") String brand, @PathVariable(value = "categoryId") int categoryId){
         if(productService.getByBrandWithCategoryId(brand.toUpperCase(),categoryId).isEmpty()){
             String message = String.format("Fetch product success (No Product name with this search: Brand {%s}, CategoryId {%s})", brand, categoryId);
@@ -61,7 +61,7 @@ public class ProductController {
         return new ResponseClass("00","Fetch product success", productService.getByBrandWithCategoryId(brand.toUpperCase(),categoryId));
     }
 
-    @GetMapping("NameWithBrandWithCategoryId/{categoryId}")
+    @GetMapping("/name-brand-categoryId/{categoryId}")
     public ResponseClass getByNameWithBrandWithCategoryId(@RequestParam(value = "name") String name,@RequestParam(value = "brand") String brand, @PathVariable(value = "categoryId") int categoryId){
         if(productService.getByNameWithBrandWithCategoryId(name.toUpperCase(),brand.toUpperCase(),categoryId).isEmpty()){
             String message = String.format("Fetch product success (No Product name with this search: Product {%s} ,Brand {%s}, CategoryId {%s})", name, brand, categoryId);
@@ -70,8 +70,8 @@ public class ProductController {
         return new ResponseClass("00","Fetch product success", productService.getByNameWithBrandWithCategoryId(name.toUpperCase(),brand.toUpperCase(),categoryId));
     }
 
-    @GetMapping("category/{id}")
-    public ResponseClass updateProduct (@PathVariable(value = "id") int id){
+    @GetMapping("/category/{id}")
+    public ResponseClass getByCategoryId (@PathVariable(value = "id") int id){
         return new ResponseClass("00","fetch category success", productService.getByCategoryId(id));
     }
 

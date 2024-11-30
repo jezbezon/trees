@@ -1,6 +1,8 @@
 package com.selflearn.tree.exceptions;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 //customize exception by my own easy to use
@@ -18,6 +20,7 @@ public class CustomizeException{
         }
     }
 
+    @Getter
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public static class NotFoundException extends RuntimeException {
         String code;
@@ -28,6 +31,7 @@ public class CustomizeException{
             super(message);
             this.code = code;
         }
+
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)

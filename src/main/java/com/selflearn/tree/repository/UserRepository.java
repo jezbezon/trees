@@ -24,4 +24,6 @@ public interface UserRepository extends JpaRepository<UserModel, Long>{
 
     @Query("select u from UserModel u where u.role.id = :roleId and u.username like %:userName%")
     List<UserModel> findByUserNameWithRole(@Param("userName") String userName, @Param("roleId") int roleId);
+
+    Optional<UserModel> findByEmail(String email);
 }

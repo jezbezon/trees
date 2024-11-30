@@ -1,5 +1,6 @@
 package com.selflearn.tree.datamapper;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,7 @@ import java.math.BigDecimal;
 
 @Setter
 @Getter
+@Builder
 public class ProductDTO {
 
     private String name;

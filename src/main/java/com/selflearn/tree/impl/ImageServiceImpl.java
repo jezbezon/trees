@@ -35,16 +35,16 @@ public class ImageServiceImpl implements ImageService {
                         image.setImage(file.getBytes());
                         image.setProduct(product);
                         String url = "api/image/download/";
-                        image.setDownloadUrl(url);
+                        image.setViewUrl(url);
                         Image afterSaved = imageRepository.save(image);
-                        image.setDownloadUrl(url + afterSaved.getId());
+                        image.setViewUrl(url + afterSaved.getId());
                         imageRepository.save(afterSaved);
 
                         ImageDTO imageDTO = new ImageDTO();
                         imageDTO.setId(afterSaved.getId());
                         imageDTO.setFileName(afterSaved.getFileName());
                         imageDTO.setFileType(afterSaved.getFileType());
-                        imageDTO.setDownloadUrl(afterSaved.getDownloadUrl());
+                        imageDTO.setDownloadUrl(afterSaved.getViewUrl());
                         listImageDto.add(imageDTO);
                     }
                 } catch (IOException e) {
@@ -69,7 +69,7 @@ public class ImageServiceImpl implements ImageService {
              imageDTO.setId(image.getId());
              imageDTO.setFileName(image.getFileName());
              imageDTO.setFileType(imageDTO.getFileType());
-             imageDTO.setDownloadUrl(image.getDownloadUrl());
+             imageDTO.setDownloadUrl(image.getViewUrl());
              listImageDto.add(imageDTO);
          });
            return listImageDto;

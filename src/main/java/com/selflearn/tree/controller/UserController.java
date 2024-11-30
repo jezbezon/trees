@@ -30,29 +30,29 @@ public class UserController {
 	private final UserService userService;
 
 	@PostMapping("/create")
-	public ResponseEntity<UserModel> createUser(@RequestBody UserDTO userdto) throws ParseException {
-        return  ResponseEntity.ok(userService.createUser(userdto));
+	public ResponseClass createUser(@RequestBody UserDTO userdto) throws ParseException {
+        return new ResponseClass("00","Created user success!",userService.createUser(userdto));
     }
 
 	@GetMapping
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseClass getUser() {
+	public ResponseClass getAllUser() {
 		return new ResponseClass("00","fetch success!",userService.getAllUser());
 	}
 
-	@GetMapping("user-by")
+	@GetMapping("/user-by")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseClass getUserBy(@RequestParam(value = "name", required = false) String name
 			, @RequestParam(value = "roleId", required = false) Integer roleId) {
 		return new ResponseClass("00","fetch success!",userService.getUserBy(name,roleId));
 	}
 
-	@PutMapping("{id}")
-    public ResponseEntity<UserModel> updateUserById(@PathVariable long id, @RequestBody UserDTO userDTO) {
+	@PutMapping("/{id}")
+    public ResponseEntity<UserModel> updateUserById(@PathVariable(value = "id") long id, @RequestBody UserDTO userDTO) {
 		return  ResponseEntity.ok(userService.updateUserById(id, userDTO));
     }
 
-	@DeleteMapping("{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteUserById(@PathVariable long id) {
 		userService.deleteUserById(id);
 		return  ResponseEntity.ok("success delete customer id:"+id);

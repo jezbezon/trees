@@ -1,12 +1,15 @@
 package com.selflearn.tree.datamapper;
 
 import com.selflearn.tree.model.Role;
+import com.selflearn.tree.model.UserModel;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
 	
 	private String username;
@@ -15,4 +18,14 @@ public class UserDTO {
 	private short roleId;
 	private String password;
 
+	@Override
+	public String toString() {
+		return "UserDTO{" +
+				"username='" + username + '\'' +
+				", email='" + email + '\'' +
+				", sexId=" + sexId +
+				", roleId=" + roleId +
+				", password='" + password + '\'' +
+				'}';
+	}
 }

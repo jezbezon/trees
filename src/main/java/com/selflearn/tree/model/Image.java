@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.sql.Blob;
 
 @Entity
-@Table(name = "image")
+@Table(name = "images")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class Image {
     private String fileName;
 
     @Column(name = "download_url", nullable = false)
-    private String downloadUrl;
+    private String viewUrl;
 
     @Column(name = "images")
     @Lob

@@ -1,6 +1,7 @@
 package com.selflearn.tree.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.selflearn.tree.resposeClass.AuditModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Category {
+public class Category extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
