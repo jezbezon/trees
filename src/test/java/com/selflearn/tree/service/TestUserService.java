@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,12 +38,12 @@ public class TestUserService {
     void getUser() throws Exception {
 
       Role role = Role.builder().id((short)1).name("ADMIN").build();
-      when(roleRepository.save(any(Role.class))).thenReturn(role);
+      when(roleRepository.findById(any())).thenReturn(Optional.ofNullable(role));
 
       UserModel userModel = new UserModel(1L,"bora","bora@gmail.com","Bora@123",1, role);
        when(userRepository.save(any(UserModel.class))).thenReturn(userModel);
         log.info(String.valueOf(userModel.formUserDto(userModel)));
-       UserModel result = userService.getAllUser().getFirst();
+       UserModel result = userService.createUser(userModel.formUserDto(userModel));
 
        assertEquals("bora",result.getUsername());
        verify(userRepository, times(1)).save(any(UserModel.class));
