@@ -1,0 +1,18 @@
+image: maven:3.9.9-amazoncorretto-23
+# Define the stages of the pipeline
+stages:
+  - test
+test-job:
+  stage: test
+  script:
+    - cd trees
+    - mvn test
+  artifacts:
+    paths:
+      - trees/target/surefire-reports/
+      - trees/target/site/jacoco/
+    expire_in: 1 hour
+  only:
+    changes:
+      - trees/src/**/*
+      - .gitlab-ci.yml
